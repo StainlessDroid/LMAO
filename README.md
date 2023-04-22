@@ -5,10 +5,7 @@
 Está escrito acorde a unas normas internas que limitan tanto el uso de funciones externas como el tamaño y formato de estas.
 
 ## Dependencias
-LMAO hace uso de la minilibx para gestionar gráficos, una versión simplificada de Libx desarrollada para uso en 42
-```
-https://github.com/42Paris/minilibx-linux
-```
+LMAO hace uso de la [minilibx](https://github.com/42Paris/minilibx-linux) para gestionar gráficos, una versión simplificada de Libx desarrollada para uso en 42
 
 ## Uso
 Es necesario inicializar y actualizar los submódulos antes de compilar el programa.
