@@ -19,6 +19,3 @@ Debes llamar al programa pasándole el mapa con el formato correcto como argumen
 ```
 ./fdf example.fdf
 ```
-
-## Licencia
-Este programa se distribuye sin ninguna garantía bajo la licencia GPL3 (se incluye una copia de la licencia en el repositorio)
