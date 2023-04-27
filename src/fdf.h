@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 23:41:38 by mpascual          #+#    #+#             */
-/*   Updated: 2023/04/22 00:33:01 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:40:12 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <math.h>
 # include <fcntl.h>
 
-/* Set the corresponding keycode table for the current OS*/
+/* Set the corresponding keycode table for the current OS */
 # if defined __linux__
 #  include "headers/mlx_input_linux.h"
 # else
@@ -25,7 +25,25 @@
 # endif
 # include "headers/colors.h"
 
-typedef struct s_voxel
+typedef struct  s_img_data
+{
+    void    *img_ptr;
+    char    *addr;
+    int     bits_per_pixel;
+    int     line_lenght;
+    int     endian;
+}               t_img_data;
+
+typedef struct  s_mlx_data
+{
+    void    *mlx;
+    void    *win;
+    int     img_width;
+    int     img_height;
+    t_img_data img;
+}               t_mlx_data;
+
+typedef struct  s_voxel
 {
     int x;
     int y;
@@ -33,18 +51,26 @@ typedef struct s_voxel
     int color;
 }               t_voxel;
 
-typedef struct s_pixel
+typedef struct  s_pixel
 {
     int x;
     int y;
     int color;
 }               t_pixel;
 
+typedef struct  s_map_tools
+{
+    int     fd;
+    int     columns;
+    int     rows;
+    t_voxel **map;
+}               t_map_tools;
 
 /* from utils.c */
 void    diy_pixel_put(t_img_data *data, int x, int y, int color);
 t_pixel voxtopix(t_voxel source);
 /* from main.c */
+int     clean_exit(unsigned char error_code, t_mlx_data *mlx, t_map_tools *mtools);
 int     keypress(int keycode, t_mlx_vars *vars);
 /* from read.c*/
 

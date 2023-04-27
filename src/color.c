@@ -6,11 +6,16 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 23:51:55 by mpascual          #+#    #+#             */
-/*   Updated: 2023/02/18 17:03:30 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/04/24 11:45:59 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+/*
+** Functions to translate color in hex format to rgb and back
+** mainly for the making of color gradients
+*/
 
 int create_trgb(int t, int r, int g, int b)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_map.c                                         :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 11:10:56 by mpascual          #+#    #+#             */
-/*   Updated: 2023/04/08 18:07:10 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/04/24 22:48:27 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	draw_line(t_img_data *data, t_pixel a, t_pixel b)
 	}
 }
 
-void	draw_map(t_map_tools *mtools, t_img_data *data)
+void	draw_map(t_map_tools *mtools, t_mlx_data *mlx)
 /*
 ** Draw a line from the current point to the next in the x and y axes
 ** Do this for every point in the map except the last ones
@@ -124,12 +124,12 @@ void	draw_map(t_map_tools *mtools, t_img_data *data)
 			if (x < mtools->columns - 1)
 			{
 				point_b = voxtopix(mtools->map[y][x + 1]);
-				draw_line(data, point_a, point_b);
+				draw_line(&mlx->img, point_a, point_b);
 			}
 			if (y < mtools->rows - 1)
 			{
 				point_b = voxtopix(mtools->map[y + 1][x]);
-				draw_line(data, point_a, point_b);
+				draw_line(&mlx->img, point_a, point_b);
 			}
 		}
 	}

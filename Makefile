@@ -6,7 +6,7 @@
 #    By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/24 18:51:54 by mpascual          #+#    #+#              #
-#    Updated: 2023/04/22 00:32:13 by mpascual         ###   ########.fr        #
+#    Updated: 2023/04/24 22:46:50 by mpascual         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ CYAN 		:= \033[1;36m
 NAME		= fdf
 LIBFT_DIR	= ./libft
 LIBFT		= libft.a
-SRC 		= src/main.c src/draw.c src/read.c src/color.c src/utils.c
+SRC 		= src/main.c src/draw.c src/read.c src/color.c src/utils.c src/store_map.c
 SRC_BONUS	=
 OS			= $(shell uname)
 
