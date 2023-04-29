@@ -6,7 +6,7 @@
 #    By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/24 18:51:54 by mpascual          #+#    #+#              #
-#    Updated: 2023/04/29 15:40:01 by mpascual         ###   ########.fr        #
+#    Updated: 2023/04/29 15:55:31 by mpascual         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ CYAN 		:= \033[1;36m
 NAME		= fdf
 LIBFT_DIR	= ./libft
 LIBFT		= libft.a
-SRC 		= src/main.c src/draw.c src/read.c src/color.c src/utils.c src/store_map.c
+SRC 		= main.c draw.c read.c color.c utils.c store_map.c
 SRC_BONUS	=
 OS			= $(shell uname)
 
@@ -32,7 +32,7 @@ else
 	SRCS = $(SRC)
 endif
 
-OBJS			= $(SRCS:%.c=%.o)
+OBJS			= $(SRCS:.c=.o)
 CFLAGS			= -Wall -Wextra -Werror
 
 # Flags for minilibx compilation in mac and linux
@@ -50,11 +50,14 @@ $(NAME): $(OBJS) $(HEADER)
 	gcc $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME) -L. $(LIBFT_DIR)/$(LIBFT)
 	@echo "$(GREEN)$(NAME) created ✓${CLR_RMV}"
 
+$(OBJS): $(SRCS)
+		$(CC) $(CFLAGS) -c $(SRCS)
+
 compile_lib:
 		cd $(LIBFT_DIR) && $(MAKE)
 
 clean:
-		rm -rf *.o
+		rm -rf $(OBJS)
 		cd $(LIBFT_DIR) && make clean
 
 fclean: clean

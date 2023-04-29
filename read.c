@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 19:25:28 by mpascual          #+#    #+#             */
-/*   Updated: 2023/04/29 15:20:52 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/04/29 16:17:02 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ int	check_line(char *line, int columns)
 }
 
 int read_map(t_map_tools *mtools)
+/*
+** Problem with memory allocation of the map
+*/
 {
     char    *line;
     char    **aux;
@@ -103,8 +106,8 @@ int read_map(t_map_tools *mtools)
             return (read_free(line, NULL));
         aux = ft_split(line, ' ');
         if (mtools->rows == 0)
-            mtools->map = malloc(sizeof(mtools->map));
-        mtools->map[mtools->rows] = ft_realloc(mtools->map[mtools->rows], sizeof(t_voxel) * mtools->columns);
+            mtools->map = malloc(sizeof(t_voxel*));
+        mtools->map[mtools->rows] = realloc(mtools->map[mtools->rows], sizeof(t_voxel) * mtools->columns);
 		if (mtools->map == NULL)
 			clean_exit(0b1011, NULL, mtools);
         store_map(mtools, aux);

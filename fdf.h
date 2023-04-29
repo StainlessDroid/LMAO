@@ -6,13 +6,13 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 23:41:38 by mpascual          #+#    #+#             */
-/*   Updated: 2023/04/29 15:19:18 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/04/29 15:56:54 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# include "../libft/libft.h"
+# include "libft/libft.h"
 # include <mlx.h>
 # include <math.h>
 # include <fcntl.h>

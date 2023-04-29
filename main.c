@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:50:30 by mpascual          #+#    #+#             */
-/*   Updated: 2023/04/29 15:12:56 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/04/29 16:12:18 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ int clean_exit(unsigned char error_code, t_mlx_data *mlx, t_map_tools *mtools)
 **  ┃   ┃   ┃   ┃   ╹━━━━━━━━━━━━━━━> free map
 */
 {
-    if (error_code % 4)
-        close(mtools->fd);
-    if (error_code % 8 && mlx != NULL)
-        mlx_destroy_window(mlx->mlx_ptr, mlx->win);
-    if (error_code % 16 && mtools != NULL)
+    if (error_code / 8)
         free_map(mtools);
+	if (error_code / 4)
+        mlx_destroy_window(mlx->mlx_ptr, mlx->win);
+    if (error_code / 2)
+        close(mtools->fd);
     if (error_code % 2)
     {
-        ft_putstr("Error\n");
+        ft_putstr_fd("Error\n", 2);
         return (1);
     }
     return (0);
@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 	t_vars	vars;
 
     if (argc != 2)
-        return (clean_exit(0b0001, &vars.mlx, &vars.mtools));
+        return (clean_exit(0b0001, NULL, NULL));
     vars.mtools.fd = open(argv[1], O_RDONLY);
     if (!ft_strnstr(argv[1], ".fdf", ft_strlen(argv[1])) || !vars.mtools.fd)
         return(clean_exit(0b0011, &vars.mlx, &vars.mtools));
