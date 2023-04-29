@@ -6,7 +6,7 @@
 #    By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/24 18:51:54 by mpascual          #+#    #+#              #
-#    Updated: 2023/04/24 22:46:50 by mpascual         ###   ########.fr        #
+#    Updated: 2023/04/29 15:40:01 by mpascual         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,18 +27,18 @@ SRC_BONUS	=
 OS			= $(shell uname)
 
 ifdef WITH_BONUS
-SRCS = $(SRC) $(BONUS_SRC)
+	SRCS = $(SRC) $(BONUS_SRC)
 else
-SRCS = $(SRC)
+	SRCS = $(SRC)
 endif
 
-OBJS			= $(SRCS:.c=.o)
+OBJS			= $(SRCS:%.c=%.o)
 CFLAGS			= -Wall -Wextra -Werror
 
 # Flags for minilibx compilation in mac and linux
 ifeq ($(OS), Linux)
 	MLX_FLAGS	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
-else ($(OS), OSX)
+else
 	MLX_FLAGS	= -lmlx -framework OpenGL -framework AppKit
 endif
 
@@ -47,17 +47,14 @@ all: compile_lib $(NAME)
 $(NAME): $(OBJS) $(HEADER)
 
 	@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-	gcc $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME) -L $(LIBFT_DIR)/$(LIBFT)
+	gcc $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME) -L. $(LIBFT_DIR)/$(LIBFT)
 	@echo "$(GREEN)$(NAME) created ✓${CLR_RMV}"
-
-$(OBJS): $(SRCS)
-		$(CC) $(CFLAGS) -c $(SRCS)
 
 compile_lib:
 		cd $(LIBFT_DIR) && $(MAKE)
 
 clean:
-		rm -rf $(OBJS)
+		rm -rf *.o
 		cd $(LIBFT_DIR) && make clean
 
 fclean: clean

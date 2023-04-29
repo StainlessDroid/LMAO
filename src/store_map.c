@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 22:46:09 by mpascual          #+#    #+#             */
-/*   Updated: 2023/04/25 00:37:43 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/04/29 15:18:54 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int store_map(t_map_tools *mtools, char **aux)
     {
 		color = DEFAULT_COLOR;
         mtools->map[mtools->rows][x].x = x;
-        mtools->map[mtools->rows][x].y = m_tools->rows;
+        mtools->map[mtools->rows][x].y = mtools->rows;
         mtools->map[mtools->rows][x].z = ft_atoi(aux[x]);
         if (ft_strchr(aux[x], ','))
         {
