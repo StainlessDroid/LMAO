@@ -24,7 +24,7 @@ int clean_exit(unsigned char error_code, t_mlx_data *mlx, t_map_tools *mtools)
 {
     if (error_code / 8)
         free_map(mtools);
-	if (error_code / 4)
+    if (error_code / 4)
         mlx_destroy_window(mlx->mlx_ptr, mlx->win);
     if (error_code / 2)
         close(mtools->fd);
@@ -42,9 +42,6 @@ int keypress(int keycode, t_vars *vars)
 ** rendering and updating the frame
 */
 {
-	void	*ptr;
-
-	ptr = NULL;
     if (keycode == KEY_ESCAPE)
         return(clean_exit(0b1110, &vars->mlx, &vars->mtools));
 	/*
