@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 19:25:28 by mpascual          #+#    #+#             */
-/*   Updated: 2023/04/29 16:17:02 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/04/30 18:37:53 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int read_free(char *line, char **aux)
     int i;
 
     i = 0;
-    free(line);
+	if (line)
+    	free(line);
     if (aux)
     {
         while (aux[i])
@@ -90,27 +91,34 @@ int	check_line(char *line, int columns)
 
 int read_map(t_map_tools *mtools)
 /*
-** Problem with memory allocation of the map
+** Reads the map line by line, allocating and storing each line as it is read.
+** To avoid reading twice, a block of size buff is allocated for the rows of
+** the map.
+** When needed this block increases and the map is reallocated.
 */
 {
     char    *line;
-    char    **aux;
+	char	**aux;
+	int		buff;
 
     line = NULL;
-    mtools->rows = 0;
-    mtools->columns = 0;
+	buff = 32;
+	mtools->map = malloc(sizeof(t_voxel *) * buff);
     while (get_next_line(mtools->fd, &line))
     {
-        mtools->columns = check_line(line, mtools->columns);
+		if (mtools->rows >= buff)
+		{
+			buff += 32;
+			mtools->map = realloc(mtools->map, sizeof(t_voxel *) * buff);
+		}
+		mtools->columns = check_line(line, mtools->columns);
         if (mtools->columns < 0)
-            return (read_free(line, NULL));
-        aux = ft_split(line, ' ');
-        if (mtools->rows == 0)
-            mtools->map = malloc(sizeof(t_voxel*));
-        mtools->map[mtools->rows] = realloc(mtools->map[mtools->rows], sizeof(t_voxel) * mtools->columns);
-		if (mtools->map == NULL)
-			clean_exit(0b1011, NULL, mtools);
-        store_map(mtools, aux);
+        	return (read_free(line, NULL));
+		aux = ft_split(line, ' ');
+		mtools->map[mtools->rows] = malloc(sizeof(t_voxel) * mtools->columns);
+		if (mtools->map == NULL || mtools->map[mtools->rows] == NULL)
+			return (read_free(line, aux));
+		store_map(mtools, aux);
         mtools->rows++;
     }
 	if (mtools->rows == 0 || mtools->columns == 0)

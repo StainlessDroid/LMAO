@@ -6,11 +6,26 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:44:04 by mpascual          #+#    #+#             */
-/*   Updated: 2023/04/07 22:27:59 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/04/30 18:53:37 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int		close_win(t_vars *vars)
+{
+	mlx_destroy_window(vars->mlx.mlx_ptr, vars->mlx.win);
+	exit(EXIT_SUCCESS);
+	return(0);
+}
+
+void	init_vars(t_mlx_data *mlx, t_map_tools *mtools)
+{
+	mlx->img_height = 1080;
+	mlx->img_width = 1920;
+	mtools->columns = 0;
+	mtools->rows = 0;
+}
 
 void	diy_pixel_put(t_img_data *data, int x, int y, int color)
 {

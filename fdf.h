@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 23:41:38 by mpascual          #+#    #+#             */
-/*   Updated: 2023/04/29 15:56:54 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/04/30 18:53:15 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ typedef struct	s_vars
 /* from utils.c */
 void    diy_pixel_put(t_img_data *data, int x, int y, int color);
 t_pixel voxtopix(t_voxel source);
+int		close_win(t_vars *vars);
+void	init_vars(t_mlx_data *mlx, t_map_tools *mtools);
 /* from main.c */
-int     clean_exit(unsigned char error_code, t_mlx_data *mlx, t_map_tools *mtools);
+void    clean_exit(unsigned char error_code, t_mlx_data *mlx, t_map_tools *mtools);
 int     keypress(int keycode, t_vars *vars);
 /* from read.c*/
 int		read_map(t_map_tools *mtools);

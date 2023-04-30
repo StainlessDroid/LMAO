@@ -6,7 +6,7 @@
 #    By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/24 18:51:54 by mpascual          #+#    #+#              #
-#    Updated: 2023/04/29 15:55:31 by mpascual         ###   ########.fr        #
+#    Updated: 2023/04/30 19:07:20 by mpascual         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,11 @@ $(NAME): $(OBJS) $(HEADER)
 
 $(OBJS): $(SRCS)
 		$(CC) $(CFLAGS) -c $(SRCS)
+
+debug: compile_lib
+	@echo "$(GREEN)--DEBUG MODE--\nCompilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
+	$(CC) $(CFLAGS) -g $(SRCS) -o $(NAME) $(MLX_FLAGS) -L. $(LIBFT_DIR)/$(LIBFT)
+	@echo "$(GREEN)$(NAME) created ✓${CLR_RMV}"
 
 compile_lib:
 		cd $(LIBFT_DIR) && $(MAKE)
