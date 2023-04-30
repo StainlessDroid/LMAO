@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:50:30 by mpascual          #+#    #+#             */
-/*   Updated: 2023/04/30 18:55:35 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/04/30 19:30:20 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void clean_exit(unsigned char error_code, t_mlx_data *mlx, t_map_tools *mtools)
 {
     if (error_code / 8)
         free_map(mtools);
-	if (error_code / 4)
+    if (error_code / 4)
         mlx_destroy_window(mlx->mlx_ptr, mlx->win);
     if (error_code / 2)
         close(mtools->fd);
@@ -42,7 +42,6 @@ int keypress(int keycode, t_vars *vars)
 ** rendering and updating the frame
 */
 {
-	ft_printf("keycode = %i\n", keycode);
     if (keycode == KEY_ESCAPE)
         clean_exit(0b1110, &vars->mlx, &vars->mtools);
 	/*
