@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:44:04 by mpascual          #+#    #+#             */
-/*   Updated: 2023/04/30 18:53:37 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/01 15:44:50 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int		close_win(t_vars *vars)
 
 void	init_vars(t_mlx_data *mlx, t_map_tools *mtools)
 {
-	mlx->img_height = 1080;
-	mlx->img_width = 1920;
+	mlx->img_height = 768;
+	mlx->img_width = 1024;
 	mtools->columns = 0;
 	mtools->rows = 0;
 }
