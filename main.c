@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:50:30 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/01 15:46:30 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:37:59 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int keypress(int keycode, t_vars *vars)
     if (keycode == KEY_ESCAPE)
         clean_exit(0b1110, &vars->mlx, &vars->mtools);
 	draw_map(&vars->mtools, &vars->mlx);
-	mlx_put_image_to_window(vars->mlx.mlx_ptr, vars->mlx.win,
-						 vars->mlx.img.img_ptr, 0, 0);
     return (0);
 }
 
@@ -73,6 +71,8 @@ int main(int argc, char **argv)
 						vars.mlx.img_height, "FDF");
 	vars.mlx.img.img_ptr = mlx_new_image(vars.mlx.mlx_ptr,
 						 vars.mlx.img_width, vars.mlx.img_height);
+	vars.mlx.img.addr = mlx_get_data_addr(vars.mlx.img.img_ptr, &vars.mlx.img.bits_per_pixel,
+						 &vars.mlx.img.line_length, &vars.mlx.img.endian);
 	draw_map(&vars.mtools, &vars.mlx);
     mlx_key_hook(vars.mlx.win, keypress, &vars);
 	mlx_hook(vars.mlx.win, 17, 0L, close_win, &vars);

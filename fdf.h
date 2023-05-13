@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 23:41:38 by mpascual          #+#    #+#             */
-/*   Updated: 2023/04/30 18:53:15 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/14 00:52:34 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ typedef struct	s_vars
 }				t_vars;
 
 /* from utils.c */
-void    diy_pixel_put(t_img_data *data, int x, int y, int color);
-t_pixel voxtopix(t_voxel source);
+void    diy_pixel_put(t_mlx_data *mlx, int x, int y, int color);
+t_pixel voxtopix(t_voxel source, t_mlx_data *mlx);
 int		close_win(t_vars *vars);
 void	init_vars(t_mlx_data *mlx, t_map_tools *mtools);
 /* from main.c */
@@ -87,8 +87,8 @@ int		read_map(t_map_tools *mtools);
 void    free_map(t_map_tools *mtools);
 int		store_map(t_map_tools *mtools, char **aux);
 /* from draw.c */
-int		draw_line_low(t_img_data *data, t_pixel a, t_pixel b);
-int		draw_line_high(t_img_data *data, t_pixel a, t_pixel b);
+int		draw_line_low(t_mlx_data *mlx, t_pixel a, t_pixel b);
+int		draw_line_high(t_mlx_data *mlx, t_pixel a, t_pixel b);
 void    draw_map(t_map_tools *mtools, t_mlx_data *mlx);
 /* from color.C */
 int     create_trgb(int t, int r, int g, int b);

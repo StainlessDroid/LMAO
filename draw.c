@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 11:10:56 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/01 15:43:06 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/14 01:22:12 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **  Two different functions are needed for lines with (-1 < slope < 1) (low)
 **  or (-1 > slope || slope > 1) (high)
 */
-int	draw_line_low(t_img_data *data, t_pixel a, t_pixel b)
+int	draw_line_low(t_mlx_data *mlx, t_pixel a, t_pixel b)
 {
 	int	dx, dy;
 	int	x, y;
@@ -38,7 +38,7 @@ int	draw_line_low(t_img_data *data, t_pixel a, t_pixel b)
 	x = a.x;
 	while (x < b.x)
 	{
-		diy_pixel_put(data, x, y, b.color);
+		diy_pixel_put(mlx, x, y, b.color);
 		if (dif > 0)
 		{
 			y += yi;
@@ -51,7 +51,7 @@ int	draw_line_low(t_img_data *data, t_pixel a, t_pixel b)
 	return (0);
 }
 
-int	draw_line_high(t_img_data *data, t_pixel a, t_pixel b)
+int	draw_line_high(t_mlx_data *mlx, t_pixel a, t_pixel b)
 {
 	int	dx, dy;
 	int	x, y;
@@ -71,7 +71,7 @@ int	draw_line_high(t_img_data *data, t_pixel a, t_pixel b)
 	x = a.x;
 	while (y < b.y)
 	{
-		diy_pixel_put(data, x, y, b.color);
+		diy_pixel_put(mlx, x, y, b.color);
 		if (dif > 0)
 		{
 			x += xi;
@@ -84,7 +84,7 @@ int	draw_line_high(t_img_data *data, t_pixel a, t_pixel b)
 	return (0);
 }
 
-void	draw_line(t_img_data *data, t_pixel a, t_pixel b)
+void	draw_line(t_mlx_data *mlx, t_pixel a, t_pixel b)
 /*
 ** Calculate the slope between the two points
 ** and call each function accordingly.
@@ -94,16 +94,16 @@ void	draw_line(t_img_data *data, t_pixel a, t_pixel b)
 	if (abs(b.y - a.y) < abs(b.x - a.x))
 	{
 		if (a.x > b.x)
-			draw_line_low(data, b, a);
+			draw_line_low(mlx, b, a);
 		else
-			draw_line_low(data, a, b);
+			draw_line_low(mlx, a, b);
 	}
 	else
 	{
 		if (a.y > b.y)
-			draw_line_high(data, b, a);
+			draw_line_high(mlx, b, a);
 		else
-			draw_line_high(data, a, b);
+			draw_line_high(mlx, a, b);
 	}
 }
 
@@ -124,20 +124,20 @@ void	draw_map(t_map_tools *mtools, t_mlx_data *mlx)
 		x = 0;
 		while (x < mtools->columns)
 		{
-			ft_printf("map[%i][%i]=%i\n", y, x, mtools->map[y][x]);
-			point_a = voxtopix(mtools->map[y][x]);
+			point_a = voxtopix(mtools->map[y][x], mlx);
 			if (x < mtools->columns - 1)
 			{
-				point_b = voxtopix(mtools->map[y][x + 1]);
-				draw_line(&mlx->img, point_a, point_b);
+				point_b = voxtopix(mtools->map[y][x + 1], mlx);
+				draw_line(mlx, point_a, point_b);
 			}
 			if (y < mtools->rows - 1)
 			{
-				point_b = voxtopix(mtools->map[y + 1][x]);
-				draw_line(&mlx->img, point_a, point_b);
+				point_b = voxtopix(mtools->map[y + 1][x], mlx);
+				draw_line(mlx, point_a, point_b);
 			}
 			x++;
 		}
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win, mlx->img.img_ptr, 0, 0);
 		y++;
 	}
 }
