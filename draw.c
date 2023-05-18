@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 11:10:56 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/14 01:22:12 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/18 03:15:56 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,15 +124,15 @@ void	draw_map(t_map_tools *mtools, t_mlx_data *mlx)
 		x = 0;
 		while (x < mtools->columns)
 		{
-			point_a = voxtopix(mtools->map[y][x], mlx);
+			point_a = voxtopix(mtools->map[y][x], mtools);
 			if (x < mtools->columns - 1)
 			{
-				point_b = voxtopix(mtools->map[y][x + 1], mlx);
+				point_b = voxtopix(mtools->map[y][x + 1], mtools);
 				draw_line(mlx, point_a, point_b);
 			}
 			if (y < mtools->rows - 1)
 			{
-				point_b = voxtopix(mtools->map[y + 1][x], mlx);
+				point_b = voxtopix(mtools->map[y + 1][x], mtools);
 				draw_line(mlx, point_a, point_b);
 			}
 			x++;

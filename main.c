@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:50:30 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/13 12:37:59 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/18 03:09:21 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,15 @@ int keypress(int keycode, t_vars *vars)
 {
     if (keycode == KEY_ESCAPE)
         clean_exit(0b1110, &vars->mlx, &vars->mtools);
+	else if (keycode == KEY_ARROW_DOWN)
+		vars->mtools.y_offset += 50;
+	else if (keycode == KEY_ARROW_UP)
+		vars->mtools.y_offset -= 50;
+	else if (keycode == KEY_ARROW_RIGHT)
+		vars->mtools.x_offset += 50;
+	else if (keycode == KEY_ARROW_LEFT)
+		vars->mtools.x_offset -= 50;
+	clear_screen(&vars->mlx);
 	draw_map(&vars->mtools, &vars->mlx);
     return (0);
 }
