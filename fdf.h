@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 23:41:38 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/18 03:15:41 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/18 03:48:54 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ typedef struct  s_map_tools
     int     rows;
 	int		x_offset;
 	int		y_offset;
-	int		scale;
 	int		z_max;
+	int		xy_scale;
+	int		z_scale;
     t_voxel **map;
 }               t_map_tools;
 
@@ -83,6 +84,7 @@ t_pixel voxtopix(t_voxel source, t_map_tools *mtools);
 int		close_win(t_vars *vars);
 void	init_vars(t_mlx_data *mlx, t_map_tools *mtools);
 void	clear_screen(t_mlx_data *mlx);
+void	set_scale(t_mlx_data *mlx, t_map_tools *mtools);
 /* from main.c */
 void    clean_exit(unsigned char error_code, t_mlx_data *mlx, t_map_tools *mtools);
 int     keypress(int keycode, t_vars *vars);

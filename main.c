@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:50:30 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/18 03:09:21 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/18 04:02:47 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int keypress(int keycode, t_vars *vars)
 		vars->mtools.x_offset += 50;
 	else if (keycode == KEY_ARROW_LEFT)
 		vars->mtools.x_offset -= 50;
+	else
+		ft_printf("%i\n", keycode);
 	clear_screen(&vars->mlx);
 	draw_map(&vars->mtools, &vars->mlx);
     return (0);
@@ -82,6 +84,7 @@ int main(int argc, char **argv)
 						 vars.mlx.img_width, vars.mlx.img_height);
 	vars.mlx.img.addr = mlx_get_data_addr(vars.mlx.img.img_ptr, &vars.mlx.img.bits_per_pixel,
 						 &vars.mlx.img.line_length, &vars.mlx.img.endian);
+	set_scale(&vars.mlx, &vars.mtools);
 	draw_map(&vars.mtools, &vars.mlx);
     mlx_key_hook(vars.mlx.win, keypress, &vars);
 	mlx_hook(vars.mlx.win, 17, 0L, close_win, &vars);

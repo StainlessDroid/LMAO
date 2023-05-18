@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:44:04 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/18 03:16:56 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/18 03:54:46 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@ int		close_win(t_vars *vars)
 	mlx_destroy_window(vars->mlx.mlx_ptr, vars->mlx.win);
 	exit(EXIT_SUCCESS);
 	return(0);
+}
+
+void	set_scale(t_mlx_data *mlx, t_map_tools *mtools)
+{
+	if (mtools->columns > mtools->rows)
+		mtools->xy_scale = mlx->img_width / (mtools->columns * 2);
+	else
+		mtools->xy_scale = mlx->img_height / (mtools->rows * 2);
+	mtools->z_scale = mtools->xy_scale;
+	while (mtools->z_max * mtools->z_scale > mtools->y_offset)
+		mtools->z_scale /= 2;
 }
 
 void	clear_screen(t_mlx_data *mlx)
@@ -46,6 +57,7 @@ void	init_vars(t_mlx_data *mlx, t_map_tools *mtools)
 	mtools->x_offset = mlx->img_width / 2;
 	mtools->y_offset = mlx->img_height / 3;
 	mtools->z_max = 0;
+	mtools->xy_scale = 10;
 }
 
 void	diy_pixel_put(t_mlx_data *mlx, int x, int y, int color)
@@ -64,7 +76,7 @@ void	diy_pixel_put(t_mlx_data *mlx, int x, int y, int color)
 **             |                  ||
 **     *       | *   **    * **   |**      **
 **      \))ejm97/.,(//,,..,,\||(,,.,\\,.((//
-**	Here lies the fucking segfault that ruined the project
+**			 FUCK YOU RANDOM SEGFAULT!!
 */
 {
 	char	*dst;
@@ -83,15 +95,10 @@ t_pixel	voxtopix(t_voxel source, t_map_tools *mtools)
 */
 {
 	t_pixel	dst;
-	int 	xy_scale;
-	int		z_scale;
 
-	xy_scale = 10;
-	z_scale = xy_scale;
-	while (mtools->z_max * z_scale > mtools->y_offset)
-		z_scale /= 2;
-	dst.x = mtools->x_offset + (source.x - source.y) * xy_scale;
-	dst.y =  mtools->y_offset + ((source.x + source.y) * xy_scale) / 2 - (source.z * z_scale);
+	dst.x = mtools->x_offset + (source.x - source.y) * mtools->xy_scale;
+	dst.y =  mtools->y_offset + ((source.x + source.y) * mtools->xy_scale) / 2
+			 - (source.z * mtools->z_scale);
 	dst.color = source.color;
 	return (dst);
 }
