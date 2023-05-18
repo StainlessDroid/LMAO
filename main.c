@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:50:30 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/18 04:02:47 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/18 04:14:44 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ int keypress(int keycode, t_vars *vars)
 		vars->mtools.x_offset += 50;
 	else if (keycode == KEY_ARROW_LEFT)
 		vars->mtools.x_offset -= 50;
+	else if (keycode == KEY_PAGEUP)
+		vars->mtools.z_scale *= 1.2;
+	else if (keycode == KEY_PAGEDOWN)
+		vars->mtools.z_scale *= 0.8;
+	else if (keycode == KEY_RBRACKET)
+		vars->mtools.xy_scale ++;
+	else if (keycode == KEY_SLASH)
+		vars->mtools.xy_scale --;
 	else
 		ft_printf("%i\n", keycode);
 	clear_screen(&vars->mlx);
