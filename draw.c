@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 11:10:56 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/18 03:15:56 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/19 21:42:16 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	draw_line(t_mlx_data *mlx, t_pixel a, t_pixel b)
 void	draw_map(t_map_tools *mtools, t_mlx_data *mlx)
 /*
 ** Draw a line from the current point to the next in the x and y axes
+** and render the image every time a line is written
 ** Do this for every point in the map except the last ones
 */
 {

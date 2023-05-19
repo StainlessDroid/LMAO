@@ -6,34 +6,58 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:44:04 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/18 03:54:46 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/19 22:23:30 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		close_win(t_vars *vars)
+void	leak_check(void)
+/* ONLY FOR DEBUG ---- REMOVE BEFORE CORRECTION!!*/
+{
+	system("leaks fdf -q");
+}
+
+int	close_win(t_vars *vars)
 {
 	mlx_destroy_window(vars->mlx.mlx_ptr, vars->mlx.win);
 	exit(EXIT_SUCCESS);
-	return(0);
+	return (0);
 }
 
-void	set_scale(t_mlx_data *mlx, t_map_tools *mtools)
+void	clean_exit(char error_code, t_mlx_data *mlx, t_map_tools *mtools)
+/*
+** Reads the last 4 bits of the uchar (1st argument) as an error code 
+**  O   O   O   O	  error_code
+**  ┃   ┃   ┃   ┃
+**  ┃   ┃   ┃   ╹━━━> output error_message
+**  ┃   ┃   ╹━━━━━━━> close fd
+**  ┃   ╹━━━━━━━━━━━> destroy window
+**  ╹━━━━━━━━━━━━━━━> free map
+*/
 {
-	if (mtools->columns > mtools->rows)
-		mtools->xy_scale = mlx->img_width / (mtools->columns * 2);
-	else
-		mtools->xy_scale = mlx->img_height / (mtools->rows * 2);
-	mtools->z_scale = mtools->xy_scale;
-	while (mtools->z_max * mtools->z_scale > mtools->y_offset)
-		mtools->z_scale /= 2;
+	if (error_code / 8)
+		free_map(mtools);
+	if (error_code / 4)
+	{
+		mlx_destroy_window(mlx->mlx_ptr, mlx->win);
+		mlx_destroy_image(mlx->mlx_ptr, mlx->img.img_ptr);
+	}
+	if (error_code / 2)
+		close(mtools->fd);
+	if (error_code % 2)
+	{
+		ft_putstr_fd("Error\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	exit(EXIT_SUCCESS);
 }
 
 void	clear_screen(t_mlx_data *mlx)
+/* Fills the screen with bkg color (black by default) */
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < mlx->img_height)
@@ -48,18 +72,6 @@ void	clear_screen(t_mlx_data *mlx)
 	}
 }
 
-void	init_vars(t_mlx_data *mlx, t_map_tools *mtools)
-{
-	mlx->img_width = 1920;
-	mlx->img_height = 1080;
-	mtools->columns = 0;
-	mtools->rows = 0;
-	mtools->x_offset = mlx->img_width / 2;
-	mtools->y_offset = mlx->img_height / 3;
-	mtools->z_max = 0;
-	mtools->xy_scale = 10;
-}
-
 void	diy_pixel_put(t_mlx_data *mlx, int x, int y, int color)
 /*
 **                   _______
@@ -72,7 +84,7 @@ void	diy_pixel_put(t_mlx_data *mlx, int x, int y, int color)
 **             | |  \    |   |    ||
 **             | |   \. _|_. | .  ||
 **             |                  ||
-**             |    seg fault     ||
+**             |      bonus       ||
 **             |                  ||
 **     *       | *   **    * **   |**      **
 **      \))ejm97/.,(//,,..,,\||(,,.,\\,.((//
@@ -83,7 +95,8 @@ void	diy_pixel_put(t_mlx_data *mlx, int x, int y, int color)
 
 	if ((x <= mlx->img_width && x >= 0) && (y <= mlx->img_height && y >= 0))
 	{
-		dst = mlx->img.addr + (y * mlx->img.line_length + x * (mlx->img.bits_per_pixel / 8));
+		dst = mlx->img.addr + (y * mlx->img.line_length + x
+				* (mlx->img.bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
 	}
 }
@@ -97,8 +110,8 @@ t_pixel	voxtopix(t_voxel source, t_map_tools *mtools)
 	t_pixel	dst;
 
 	dst.x = mtools->x_offset + (source.x - source.y) * mtools->xy_scale;
-	dst.y =  mtools->y_offset + ((source.x + source.y) * mtools->xy_scale) / 2
-			 - (source.z * mtools->z_scale);
+	dst.y = mtools->y_offset + ((source.x + source.y) * mtools->xy_scale) / 2
+		- (source.z * mtools->z_scale);
 	dst.color = source.color;
 	return (dst);
 }
