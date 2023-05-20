@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 19:25:28 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/20 13:49:29 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/20 16:50:05 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int	read_map(t_map_tools *mtools)
 		mtools->rows++;
 		read_free(line, aux);
 	}
+	free(line);
 	if (mtools->rows == 0 || mtools->columns == 0)
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:44:04 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/19 22:23:30 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/20 17:08:27 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	diy_pixel_put(t_mlx_data *mlx, int x, int y, int color)
 {
 	char	*dst;
 
-	if ((x <= mlx->img_width && x >= 0) && (y <= mlx->img_height && y >= 0))
+	if ((x < mlx->img_width && x > 0) && (y < mlx->img_height && y > 0))
 	{
 		dst = mlx->img.addr + (y * mlx->img.line_length + x
 				* (mlx->img.bits_per_pixel / 8));
