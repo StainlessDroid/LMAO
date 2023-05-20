@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:50:30 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/20 16:35:08 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/20 17:49:59 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	main(int argc, char **argv)
 {
 	t_vars	vars;
 
-	atexit(leak_check);
 	if (argc != 2)
 		clean_exit(0b0001, NULL, NULL);
 	if (ft_strnstr(argv[1], ".fdf", ft_strlen(argv[1])))
@@ -102,7 +101,7 @@ int	main(int argc, char **argv)
 	set_scale(&vars.mlx, &vars.mtools);
 	draw_map(&vars.mtools, &vars.mlx);
 	mlx_put_image_to_window(vars.mlx.mlx_ptr, vars.mlx.win, vars.mlx.img.img_ptr, 0, 0);
-	mlx_key_hook(vars.mlx.win, keypress, &vars);
+	mlx_hook(vars.mlx.win, 2, 1L>>0, keypress, &vars);
 	mlx_hook(vars.mlx.win, 17, 0L, close_win, &vars);
 	mlx_loop(vars.mlx.mlx_ptr);
 	return (0);

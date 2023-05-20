@@ -6,17 +6,11 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:44:04 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/20 17:08:27 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/20 17:50:12 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	leak_check(void)
-/* ONLY FOR DEBUG ---- REMOVE BEFORE CORRECTION!!*/
-{
-	system("leaks fdf -q");
-}
 
 int	close_win(t_vars *vars)
 {
