@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:50:30 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/19 22:18:44 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/20 13:39:23 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	keypress(int keycode, t_vars *vars)
 		vars->mtools.xy_scale --;
 	clear_screen(&vars->mlx);
 	draw_map(&vars->mtools, &vars->mlx);
+	mlx_put_image_to_window(vars->mlx.mlx_ptr, vars->mlx.win, vars->mlx.img.img_ptr, 0, 0);
 	return (0);
 }
 
@@ -100,6 +101,7 @@ int	main(int argc, char **argv)
 		clean_exit(0b0011, &vars.mlx, &vars.mtools);
 	set_scale(&vars.mlx, &vars.mtools);
 	draw_map(&vars.mtools, &vars.mlx);
+	mlx_put_image_to_window(vars.mlx.mlx_ptr, vars.mlx.win, vars.mlx.img.img_ptr, 0, 0);
 	mlx_key_hook(vars.mlx.win, keypress, &vars);
 	mlx_hook(vars.mlx.win, 17, 0L, close_win, &vars);
 	mlx_loop(vars.mlx.mlx_ptr);

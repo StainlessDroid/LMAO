@@ -6,13 +6,13 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 19:25:28 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/19 21:14:05 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/20 13:49:29 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	read_free(char *line, char **aux, int ret)
+int	read_free(char *line, char **aux)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ int	read_free(char *line, char **aux, int ret)
 		}
 	}
 	free(aux);
-	return (ret);
+	return (0);
 }
 
 static char	*check_point(char *str)
@@ -113,15 +113,16 @@ int	read_map(t_map_tools *mtools)
 		}
 		mtools->columns = check_line(line, mtools->columns);
 		if (mtools->columns < 0)
-			return (read_free(line, aux, 1));
+			return (read_free(line, aux) + 1);
 		aux = ft_split(line, ' ');
 		mtools->map[mtools->rows] = malloc(sizeof(t_voxel) * mtools->columns);
 		if (mtools->map == NULL || mtools->map[mtools->rows] == NULL)
-			return (read_free(line, aux, 1));
+			return (read_free(line, aux) + 1);
 		store_map(mtools, aux);
 		mtools->rows++;
+		read_free(line, aux);
 	}
 	if (mtools->rows == 0 || mtools->columns == 0)
-		return (read_free(line, aux, 1));
-	return (read_free(line, aux, 0));
+		return (1);
+	return (0);
 }

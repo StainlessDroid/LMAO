@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 11:10:56 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/19 21:42:16 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/20 13:36:26 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ void	draw_map(t_map_tools *mtools, t_mlx_data *mlx)
 			}
 			x++;
 		}
-		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win, mlx->img.img_ptr, 0, 0);
 		y++;
 	}
 }
