@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 09:50:30 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/20 18:08:58 by mpascual         ###   ########.fr       */
+/*   Created: 2023/05/20 18:07:40 by mpascual          #+#    #+#             */
+/*   Updated: 2023/05/20 18:08:32 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,25 @@ void	set_scale(t_mlx_data *mlx, t_map_tools *mtools)
 		mtools->z_scale /= 2;
 }
 
+void	clear_screen(t_mlx_data *mlx)
+/* Fills the screen with bkg color (black by default) */
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < mlx->img_height)
+	{
+		x = 0;
+		while (x < mlx->img_width)
+		{
+			diy_pixel_put(mlx, x, y, 0x000000);
+			x++;
+		}
+		y++;
+	}
+}
+
 int	keypress(int keycode, t_vars *vars)
 /*
 ** Detects a key being pressed and change the necesary variables before
@@ -55,6 +74,25 @@ int	keypress(int keycode, t_vars *vars)
 {
 	if (keycode == KEY_ESCAPE)
 		clean_exit(0b1110, &vars->mlx, &vars->mtools);
+	if (keycode == KEY_ARROW_DOWN)
+		vars->mtools.y_offset += 50;
+	if (keycode == KEY_ARROW_UP)
+		vars->mtools.y_offset -= 50;
+	if (keycode == KEY_ARROW_RIGHT)
+		vars->mtools.x_offset += 50;
+	if (keycode == KEY_ARROW_LEFT)
+		vars->mtools.x_offset -= 50;
+	if (keycode == KEY_PAGEUP)
+		vars->mtools.z_scale *= 1.25;
+	if (keycode == KEY_PAGEDOWN)
+		vars->mtools.z_scale *= 0.75;
+	if (keycode == KEY_RBRACKET)
+		vars->mtools.xy_scale ++;
+	if (keycode == KEY_SLASH)
+		vars->mtools.xy_scale --;
+	clear_screen(&vars->mlx);
+	draw_map(&vars->mtools, &vars->mlx);
+	mlx_put_image_to_window(vars->mlx.mlx_ptr, vars->mlx.win, vars->mlx.img.img_ptr, 0, 0);
 	return (0);
 }
 

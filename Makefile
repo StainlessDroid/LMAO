@@ -6,7 +6,7 @@
 #    By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/24 18:51:54 by mpascual          #+#    #+#              #
-#    Updated: 2023/05/19 19:38:46 by mpascual         ###   ########.fr        #
+#    Updated: 2023/05/20 18:14:34 by mpascual         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,11 @@ NAME		= fdf
 LIBFT_DIR	= ./libft
 LIBFT		= libft.a
 SRC 		= main.c draw.c read.c utils.c store_map.c
-SRC_BONUS	=
+BONUS_SRC	= main_bonus.c draw.c read.c utils.c store_map.c
 OS			= $(shell uname)
 
 ifdef WITH_BONUS
-	SRCS = $(SRC) $(BONUS_SRC)
+	SRCS = $(BONUS_SRC)
 else
 	SRCS = $(SRC)
 endif
@@ -63,6 +63,7 @@ compile_lib:
 
 clean:
 		rm -rf $(OBJS)
+		rm -rf $(BONUS_SRC:.c=.o)
 		cd $(LIBFT_DIR) && make clean
 
 fclean: clean

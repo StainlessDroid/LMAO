@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:44:04 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/20 17:50:12 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:08:07 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,6 @@ void	clean_exit(char error_code, t_mlx_data *mlx, t_map_tools *mtools)
 		exit(EXIT_FAILURE);
 	}
 	exit(EXIT_SUCCESS);
-}
-
-void	clear_screen(t_mlx_data *mlx)
-/* Fills the screen with bkg color (black by default) */
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < mlx->img_height)
-	{
-		x = 0;
-		while (x < mlx->img_width)
-		{
-			diy_pixel_put(mlx, x, y, 0x000000);
-			x++;
-		}
-		y++;
-	}
 }
 
 void	diy_pixel_put(t_mlx_data *mlx, int x, int y, int color)
