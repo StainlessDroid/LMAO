@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:44:04 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/20 18:08:07 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:54:57 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	close_win(t_vars *vars)
 
 void	clean_exit(char error_code, t_mlx_data *mlx, t_map_tools *mtools)
 /*
-** Reads the last 4 bits of the uchar (1st argument) as an error code 
+** Reads the last 4 bits of the char (1st argument) as an error code 
 **  O   O   O   O	  error_code
 **  ┃   ┃   ┃   ┃
 **  ┃   ┃   ┃   ╹━━━> output error_message

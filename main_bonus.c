@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:07:40 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/20 18:08:32 by mpascual         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:50:06 by mpascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,18 @@ void	init_vars(t_mlx_data *mlx, t_map_tools *mtools)
 void	set_scale(t_mlx_data *mlx, t_map_tools *mtools)
 /* Set the initial scale of the map to match the size of the screen */
 {
-	if (mtools->columns > mtools->rows)
-		mtools->xy_scale = mlx->img_width / (mtools->columns * 2);
-	else
-		mtools->xy_scale = mlx->img_height / (mtools->rows * 2);
+	if (mtools->columns <= mlx->img_width || mtools->rows <= mlx->img_height)
+	{
+		if (mtools->columns > mtools->rows)
+			mtools->xy_scale = mlx->img_width / (mtools->columns * 2);
+		else
+			mtools->xy_scale = mlx->img_height / (mtools->rows * 2);
+	}
 	mtools->z_scale = mtools->xy_scale;
 	while (mtools->z_max * mtools->z_scale > mtools->y_offset)
 		mtools->z_scale /= 2;
+	if (mtools->z_scale <= 0)
+		mtools->z_scale = 1;
 }
 
 void	clear_screen(t_mlx_data *mlx)
