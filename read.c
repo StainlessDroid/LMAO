@@ -102,14 +102,14 @@ int	read_map(t_map_tools *mtools)
 	int		buff;
 
 	line = NULL;
-	buff = 32;
+	buff = 42;
 	mtools->map = malloc(sizeof(t_voxel *) * buff);
 	while (get_next_line(mtools->fd, &line))
 	{
 		if (mtools->rows >= buff)
 		{
-			buff += 32;
 			mtools->map = realloc(mtools->map, sizeof(t_voxel *) * buff);
+			buff += 42;
 		}
 		mtools->columns = check_line(line, mtools->columns);
 		if (mtools->columns < 0)
