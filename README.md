@@ -14,11 +14,18 @@ git submodule init libft && git submodule update libft
 ```
 
 Para compilar simplemente haz ```make``` en el fichero raíz del repositorio
+Para usar las opciones de mover y ampliar el mapa puedes usar la regla bonus:
+```make bonus```
 
 Debes llamar al programa pasándole el mapa con el formato correcto como argumento, por ejemplo:
 ```
-./fdf example.fdf
+./fdf test_maps/pylone.fdf
 ```
+
+Los controles para la parte bonus son:
+  - Teclas '+' & '-' para hacer zoom
+  - Teclas 'Page_up' & 'Page_down' para aumentar/disminuir la altura del mapa
+  - Teclas de dirección para mover el mapa
 
 ## Licencia
 Este programa se distribuye sin ninguna garantía bajo la licencia GPL3 (se incluye una copia de la licencia en el repositorio)
