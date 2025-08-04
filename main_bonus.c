@@ -91,9 +91,9 @@ int	keypress(int keycode, t_vars *vars)
 		vars->mtools.z_scale *= 1.25;
 	if (keycode == KEY_PAGEDOWN)
 		vars->mtools.z_scale *= 0.75;
-	if (keycode == KEY_RBRACKET)
+	if (keycode == KEY_PLUS)
 		vars->mtools.xy_scale ++;
-	if (keycode == KEY_SLASH)
+	if (keycode == KEY_MINUS)
 		vars->mtools.xy_scale --;
 	clear_screen(&vars->mlx);
 	draw_map(&vars->mtools, &vars->mlx);

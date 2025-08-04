@@ -6,7 +6,7 @@
 #    By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/24 18:51:54 by mpascual          #+#    #+#              #
-#    Updated: 2023/05/20 18:14:34 by mpascual         ###   ########.fr        #
+#    Updated: 2025/07/24 13:34:23 by mapascua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,13 @@ CYAN 		:= \033[1;36m
 
 # Global Config
 NAME		= fdf
-LIBFT_DIR	= ./libft
+LIBFT_DIR	= ./lib/libft
 LIBFT		= libft.a
+MLX_DIR		= ./lib/minilibx-linux
+MLX			= libmlx_Linux.a
 SRC 		= main.c draw.c read.c utils.c store_map.c
 BONUS_SRC	= main_bonus.c draw.c read.c utils.c store_map.c
+HEADERS		= fdf.h $(LIBFT_DIR)/$(LIBFT)
 OS			= $(shell uname)
 
 ifdef WITH_BONUS
@@ -37,8 +40,9 @@ CFLAGS			= -Wall -Wextra -Werror
 
 # Flags for minilibx compilation in mac and linux
 ifeq ($(OS), Linux)
-	MLX_FLAGS	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+	MLX_FLAGS	= -Lmlx_linux -L. $(MLX_DIR)/$(MLX) -Imlx_linux -lXext -lX11 -lm -lz
 else
+	MLX			= libmlx.a
 	MLX_FLAGS	= -lmlx -framework OpenGL -framework AppKit
 endif
 
@@ -53,18 +57,23 @@ $(NAME): $(OBJS) $(HEADER)
 $(OBJS): $(SRCS)
 		$(CC) $(CFLAGS) -c $(SRCS)
 
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+
 debug: compile_lib
-	@echo "$(GREEN)--DEBUG MODE--\nCompilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
+	@echo "$(GREEN)--DEBUG MODE--\nCompilation ${CLR_RMV}of ${YELLOW}$(NAME)${CLR_RMV}..."
 	$(CC) $(CFLAGS) -g $(SRCS) -o $(NAME) $(MLX_FLAGS) -L. $(LIBFT_DIR)/$(LIBFT) -fsanitize=address,undefined
 	@echo "$(GREEN)$(NAME) created ✓${CLR_RMV}"
 
 compile_lib:
 		cd $(LIBFT_DIR) && $(MAKE)
+		cd $(MLX_DIR) && $(MAKE)
 
 clean:
 		rm -rf $(OBJS)
 		rm -rf $(BONUS_SRC:.c=.o)
-		cd $(LIBFT_DIR) && make clean
+		cd $(LIBFT_DIR) && $(MAKE) clean
+		cd $(MLX_DIR) && $(MAKE) clean
 
 fclean: clean
 		rm -rf $(LIBFT_DIR)/$(LIBFT)
@@ -74,7 +83,7 @@ bonus:
 	$(MAKE) WITH_BONUS=1
 
 norme:
-		@norminette $(SRCS) fdf.h
+		@norminette $(SRCS) $(HEADERS) 
 
 re: fclean all
 

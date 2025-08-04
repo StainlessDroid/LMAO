@@ -6,14 +6,14 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 23:41:38 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/19 22:53:36 by mpascual         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:32:55 by mapascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# include "libft/libft.h"
-# include <mlx.h>
+# include "lib/libft/libft.h"
+# include "lib/minilibx-linux/mlx.h"
 # include <math.h>
 # include <fcntl.h>
 

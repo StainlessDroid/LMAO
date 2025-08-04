@@ -6,7 +6,7 @@
 /*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 19:25:28 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/20 17:49:01 by mpascual         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:55:32 by mapascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*check_point(char *str)
 {
 	if (*str == '-' || *str == '+')
 		str++;
-	while (*str != ' ' && *str != ',' && *str)
+	while (*str != ' ' && *str != ',' && *str && *str != '\n')
 	{
 		if (*str < '0' || *str > '9')
 			return (NULL);
@@ -73,7 +73,7 @@ int	check_line(char *line, int columns)
 	int	x;
 
 	x = 0;
-	while (*line)
+	while (*line != '\0' && *line != '\n')
 	{
 		while (*line == ' ')
 			++line;
@@ -101,10 +101,10 @@ int	read_map(t_map_tools *mtools)
 	char	**aux;
 	int		buff;
 
-	line = NULL;
 	buff = 42;
 	mtools->map = malloc(sizeof(t_voxel *) * buff);
-	while (get_next_line(mtools->fd, &line))
+	line = get_next_line(mtools->fd);
+	while (line)
 	{
 		if (mtools->rows >= buff)
 		{
@@ -121,8 +121,10 @@ int	read_map(t_map_tools *mtools)
 		store_map(mtools, aux);
 		mtools->rows++;
 		read_free(line, aux);
+		line = get_next_line(mtools->fd);
 	}
-	free(line);
+	if (line)
+		free(line);
 	if (mtools->rows == 0 || mtools->columns == 0)
 		return (1);
 	return (0);
