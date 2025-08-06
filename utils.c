@@ -68,7 +68,7 @@ void	diy_pixel_put(t_mlx_data *mlx, int x, int y, int color)
 {
 	char	*dst;
 
-	if ((x < mlx->img_width && x > 0) && (y < mlx->img_height && y > 0))
+	if ((x < mlx->img_width && x >= 0) && (y < mlx->img_height && y >= 0))
 	{
 		dst = mlx->img.addr + (y * mlx->img.line_length + x
 				* (mlx->img.bits_per_pixel / 8));

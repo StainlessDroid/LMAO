@@ -33,7 +33,7 @@ int	store_map(t_map_tools *mtools, char **aux)
 	int	color;
 
 	x = 0;
-	while (aux[x] && x <= mtools->columns)
+	while (aux[x] && x < mtools->columns)
 	{
 		color = DEFAULT_COLOR;
 		mtools->map[mtools->rows][x].x = x;

@@ -32,7 +32,7 @@ void	init_vars(t_mlx_data *mlx, t_map_tools *mtools)
 	mtools->x_offset = mlx->img_width / 2;
 	mtools->y_offset = mlx->img_height / 4;
 	mtools->z_max = 0;
-	mtools->xy_scale = 10;
+	mtools->xy_scale = 4;
 }
 
 void	set_scale(t_mlx_data *mlx, t_map_tools *mtools)

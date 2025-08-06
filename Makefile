@@ -6,7 +6,7 @@
 #    By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/24 18:51:54 by mpascual          #+#    #+#              #
-#    Updated: 2025/07/24 13:34:23 by mapascua         ###   ########.fr        #
+#    Updated: 2025/08/06 17:16:17 by mapascua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,6 @@ endif
 all: compile_lib $(NAME)
 
 $(NAME): $(OBJS) $(HEADER)
-
 	@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
 	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME) -L. $(LIBFT_DIR)/$(LIBFT) -D SCREEN_RES_X=$(SCREEN_RESX) -D SCREEN_RES_Y=$(SCREEN_RESY)
 	@echo "$(GREEN)$(NAME) created ✓${CLR_RMV}"
@@ -63,22 +62,22 @@ debug: compile_lib
 	@echo $(SCREEN_RESX)
 	@echo $(SCREEN_RESY)
 	@echo "$(GREEN)--DEBUG MODE--\nCompilation ${CLR_RMV}of ${YELLOW}$(NAME)${CLR_RMV}..."
-	$(CC) $(CFLAGS) -g $(SRCS) -o $(NAME) $(MLX_FLAGS) -L. $(LIBFT_DIR)/$(LIBFT) -fsanitize=address -D SCREEN_RES_X=$(SCREEN_RESX) -D SCREEN_RES_Y=$(SCREEN_RESY)
+	$(CC) $(CFLAGS) -g $(SRCS) -o $(NAME) $(MLX_FLAGS) -L. $(LIBFT_DIR)/$(LIBFT) -D SCREEN_RES_X=$(SCREEN_RESX) -D SCREEN_RES_Y=$(SCREEN_RESY) -fsanitize=address
 	@echo "$(GREEN)$(NAME) created ✓${CLR_RMV}"
 
 compile_lib:
-		cd $(LIBFT_DIR) && $(MAKE)
-		cd $(MLX_DIR) && $(MAKE)
+	cd $(LIBFT_DIR) && $(MAKE)
+	cd $(MLX_DIR) && $(MAKE)
 
 clean:
-		rm -rf $(OBJS)
-		rm -rf $(BONUS_SRC:.c=.o)
-		cd $(LIBFT_DIR) && $(MAKE) clean
-		cd $(MLX_DIR) && $(MAKE) clean
+	rm -rf $(OBJS)
+	rm -rf $(BONUS_SRC:.c=.o)
+	cd $(LIBFT_DIR) && $(MAKE) clean
+	cd $(MLX_DIR) && $(MAKE) clean
 
 fclean: clean
-		rm -rf $(LIBFT_DIR)/$(LIBFT)
-		rm -rf $(NAME)
+	rm -rf $(LIBFT_DIR)/$(LIBFT)
+	rm -rf $(NAME)
 
 bonus:
 	$(MAKE) WITH_BONUS=1

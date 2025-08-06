@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mapascua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 19:25:28 by mpascual          #+#    #+#             */
-/*   Updated: 2025/08/04 19:55:32 by mapascua         ###   ########.fr       */
+/*   Created: 2025/08/06 17:05:21 by mapascua          #+#    #+#             */
+/*   Updated: 2025/08/06 18:13:31 by mapascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,15 @@ int	read_map(t_map_tools *mtools)
 	{
 		if (mtools->rows >= buff)
 		{
-			mtools->map = realloc(mtools->map, sizeof(t_voxel *) * buff);
 			buff += 42;
+			mtools->map = realloc(mtools->map, sizeof(t_voxel *) * buff);
 		}
 		mtools->columns = check_line(line, mtools->columns);
 		if (mtools->columns < 0)
 			return (read_free(line, NULL) + 1);
 		aux = ft_split(line, ' ');
 		mtools->map[mtools->rows] = malloc(sizeof(t_voxel) * mtools->columns);
-		if (mtools->map == NULL || mtools->map[mtools->rows] == NULL)
+		if (mtools->map[mtools->rows] == NULL || mtools->map[mtools->rows] == NULL)
 			return (read_free(line, aux) + 1);
 		store_map(mtools, aux);
 		mtools->rows++;
