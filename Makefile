@@ -28,6 +28,8 @@ SRC 		= main.c draw.c read.c utils.c store_map.c
 BONUS_SRC	= main_bonus.c draw.c read.c utils.c store_map.c
 HEADERS		= fdf.h $(LIBFT_DIR)/$(LIBFT)
 OS			= $(shell uname)
+SCREEN_RESX	= $(shell xdpyinfo | grep 'dimensions' | cut -d ' ' -f7 | cut -d 'x' -f1)
+SCREEN_RESY	= $(shell xdpyinfo | grep 'dimensions' | cut -d ' ' -f7 | cut -d 'x' -f2)
 
 ifdef WITH_BONUS
 	SRCS = $(BONUS_SRC)
@@ -51,18 +53,17 @@ all: compile_lib $(NAME)
 $(NAME): $(OBJS) $(HEADER)
 
 	@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-	gcc $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME) -L. $(LIBFT_DIR)/$(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME) -L. $(LIBFT_DIR)/$(LIBFT) -D SCREEN_RES_X=$(SCREEN_RESX) -D SCREEN_RES_Y=$(SCREEN_RESY)
 	@echo "$(GREEN)$(NAME) created ✓${CLR_RMV}"
 
 $(OBJS): $(SRCS)
 		$(CC) $(CFLAGS) -c $(SRCS)
 
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
-
 debug: compile_lib
+	@echo $(SCREEN_RESX)
+	@echo $(SCREEN_RESY)
 	@echo "$(GREEN)--DEBUG MODE--\nCompilation ${CLR_RMV}of ${YELLOW}$(NAME)${CLR_RMV}..."
-	$(CC) $(CFLAGS) -g $(SRCS) -o $(NAME) $(MLX_FLAGS) -L. $(LIBFT_DIR)/$(LIBFT) -fsanitize=address,undefined
+	$(CC) $(CFLAGS) -g $(SRCS) -o $(NAME) $(MLX_FLAGS) -L. $(LIBFT_DIR)/$(LIBFT) -fsanitize=address -D SCREEN_RES_X=$(SCREEN_RESX) -D SCREEN_RES_Y=$(SCREEN_RESY)
 	@echo "$(GREEN)$(NAME) created ✓${CLR_RMV}"
 
 compile_lib:

@@ -25,6 +25,14 @@
 # endif
 # include "headers/colors.h"
 
+/* Set default screen resolution (to be changed at compile time by Makefile) */
+# ifndef SCREEN_RES_X
+#  define SCREEN_RES_X 1920
+# endif
+# ifndef SCREEN_RES_Y
+#  define SCREEN_RES_Y 1080
+# endif
+
 typedef struct s_voxel
 {
 	int	x;
@@ -85,7 +93,7 @@ t_pixel	voxtopix(t_voxel source, t_map_tools *mtools);
 int		close_win(t_vars *vars);
 void	clear_screen(t_mlx_data *mlx);
 void	leak_check(void);
-/* from main.c */
+// from main.c
 void	init_vars(t_mlx_data *mlx, t_map_tools *mtools);
 void	set_scale(t_mlx_data *mlx, t_map_tools *mtools);
 int		keypress(int keycode, t_vars *vars);

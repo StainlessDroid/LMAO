@@ -18,8 +18,8 @@ void	init_vars(t_mlx_data *mlx, t_map_tools *mtools)
 ** Set initial values for the variables of the map position and scale
 */
 {
-	mlx->img_width = 1920;
-	mlx->img_height = 1080;
+	mlx->img_width = SCREEN_RES_X - SCREEN_RES_X / 10;
+	mlx->img_height = SCREEN_RES_Y - SCREEN_RES_Y / 10;
 	mlx->mlx_ptr = mlx_init();
 	mlx->win = mlx_new_window(mlx->mlx_ptr, mlx->img_width,
 			mlx->img_height, "FDF");
