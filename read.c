@@ -50,7 +50,7 @@ static char	*check_point(char *str)
 		if (*(str + 1) != '0' || *(str + 2) != 'x')
 			return (NULL);
 		str += 3;
-		while (*str != ' ' && *str)
+		while (*str != ' ' && *str != '\n' && *str)
 		{
 			if ((*str < '0' || *str > '9') && (*str < 'a' || *str > 'f')
 				&& (*str < 'A' || *str > 'F'))

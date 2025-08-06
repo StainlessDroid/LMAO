@@ -32,7 +32,7 @@ void	init_vars(t_mlx_data *mlx, t_map_tools *mtools)
 	mtools->x_offset = mlx->img_width / 2;
 	mtools->y_offset = mlx->img_height / 4;
 	mtools->z_max = 0;
-	mtools->xy_scale = 4;
+	mtools->xy_scale = 10;
 }
 
 void	set_scale(t_mlx_data *mlx, t_map_tools *mtools)
@@ -50,6 +50,8 @@ void	set_scale(t_mlx_data *mlx, t_map_tools *mtools)
 		mtools->z_scale /= 2;
 	if (mtools->z_scale <= 0)
 		mtools->z_scale = 1;
+	if (mtools->xy_scale == 0)
+		mtools->xy_scale = 1;
 }
 
 int	keypress(int keycode, t_vars *vars)

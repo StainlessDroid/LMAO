@@ -50,6 +50,8 @@ void	set_scale(t_mlx_data *mlx, t_map_tools *mtools)
 		mtools->z_scale /= 2;
 	if (mtools->z_scale <= 0)
 		mtools->z_scale = 1;
+	if (mtools->xy_scale == 0)
+		mtools->xy_scale = 1;
 }
 
 void	clear_screen(t_mlx_data *mlx)
