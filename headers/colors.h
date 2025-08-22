@@ -3,19 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mapascua <mapascual@student.42malaga.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/25 15:42:35 by mpascual          #+#    #+#             */
-/*   Updated: 2023/02/25 16:14:28 by mpascual         ###   ########.fr       */
+/*   Created: 2025/08/22 19:36:44 by mapascua          #+#    #+#             */
+/*   Updated: 2025/08/22 19:38:44 by mapascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLORS_H
 # define COLORS_H
 
-typedef enum e_default
+# define DEFAULT_COLOR 0xFFFFFF
+
+typedef enum e_color1
 {
-    DEFAULT_COLOR = 0xFFFFFF,
-}               t_default;
+    BACKGROUND	= 0x1C1C1C,
+	HIGH		= 0xFC7200,
+	LOW			= 0x0069FC,
+}               e_color1;
 
 #endif

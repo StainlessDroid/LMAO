@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mapascua <mapascua@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 23:41:38 by mpascual          #+#    #+#             */
-/*   Updated: 2025/07/24 13:32:55 by mapascua         ###   ########.fr       */
+/*   Created: 2025/08/22 15:46:02 by mapascua          #+#    #+#             */
+/*   Updated: 2025/08/22 17:20:31 by mapascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@
 #  include "headers/mlx_input.h"
 # endif
 # include "headers/colors.h"
-
-/* Set default screen resolution (to be changed at compile time by Makefile) */
-# ifndef SCREEN_RES_X
-#  define SCREEN_RES_X 1920
-# endif
-# ifndef SCREEN_RES_Y
-#  define SCREEN_RES_Y 1080
-# endif
 
 typedef struct s_voxel
 {
@@ -87,7 +79,7 @@ typedef struct s_vars
 }	t_vars;
 
 /* from utils.c */
-void	clean_exit(char error_code, t_mlx_data *mlx, t_map_tools *mtools);
+void	clean_exit(char code, t_mlx_data *mlx, t_map_tools *mtools, char *msg);
 void	diy_pixel_put(t_mlx_data *mlx, int x, int y, int color);
 t_pixel	voxtopix(t_voxel source, t_map_tools *mtools);
 int		close_win(t_vars *vars);

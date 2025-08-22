@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpascual <mapascua@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:50:30 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/23 13:23:28 by mpascual         ###   ########.fr       */
+/*   Updated: 2025/08/22 17:24:19 by mapascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@ void	init_vars(t_mlx_data *mlx, t_map_tools *mtools)
 ** Set initial values for the variables of the map position and scale
 */
 {
-	mlx->img_width = SCREEN_RES_X - SCREEN_RES_X / 10;
-	mlx->img_height = SCREEN_RES_Y - SCREEN_RES_Y / 10;
+	int	screen_size_x;
+	int	screen_size_y;
+
 	mlx->mlx_ptr = mlx_init();
+	mlx_get_screen_size(mlx->mlx_ptr, &screen_size_x, &screen_size_y);
+	mlx->img_width = screen_size_x - screen_size_x / 10;
+	mlx->img_height = screen_size_y - screen_size_y / 10;
 	mlx->win = mlx_new_window(mlx->mlx_ptr, mlx->img_width,
 			mlx->img_height, "FDF");
 	mlx->img.img_ptr = mlx_new_image(mlx->mlx_ptr, mlx->img_width,
@@ -30,7 +34,7 @@ void	init_vars(t_mlx_data *mlx, t_map_tools *mtools)
 	mtools->columns = 0;
 	mtools->rows = 0;
 	mtools->x_offset = mlx->img_width / 2;
-	mtools->y_offset = mlx->img_height / 4;
+	mtools->y_offset = mlx->img_height / 6;
 	mtools->z_max = 0;
 	mtools->xy_scale = 10;
 }
@@ -50,8 +54,8 @@ void	set_scale(t_mlx_data *mlx, t_map_tools *mtools)
 		mtools->z_scale /= 2;
 	if (mtools->z_scale <= 0)
 		mtools->z_scale = 1;
-	if (mtools->xy_scale == 0)
-		mtools->xy_scale = 1;
+	if (mtools->xy_scale <= 1)
+		mtools->xy_scale = 3;
 }
 
 int	keypress(int keycode, t_vars *vars)
@@ -61,7 +65,7 @@ int	keypress(int keycode, t_vars *vars)
 */
 {
 	if (keycode == KEY_ESCAPE)
-		clean_exit(0b1110, &vars->mlx, &vars->mtools);
+		clean_exit(0b1110, &vars->mlx, &vars->mtools, NULL);
 	return (0);
 }
 
@@ -74,22 +78,23 @@ int	main(int argc, char **argv)
 	t_vars	vars;
 
 	if (argc != 2)
-		clean_exit(0b0001, NULL, NULL);
-	if (ft_strnstr(argv[1], ".fdf", ft_strlen(argv[1])))
+		clean_exit(0b0001, NULL, NULL, NULL);
+	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".fdf", 4) == 0)
 	{
 		vars.mtools.fd = open(argv[1], O_RDONLY);
 		if (vars.mtools.fd == -1)
-			clean_exit(0b0001, NULL, NULL);
+			clean_exit(0b0001, NULL, NULL, "Could not open file\n");
 	}
 	else
-		clean_exit(0b0011, NULL, &vars.mtools);
+		clean_exit(0b0011, NULL, &vars.mtools, "Invalid file\n");
 	init_vars(&vars.mlx, &vars.mtools);
 	if (read_map(&vars.mtools))
-		clean_exit(0b0011, &vars.mlx, &vars.mtools);
+		clean_exit(0b0011, &vars.mlx, &vars.mtools, "Invalid map\n");
 	set_scale(&vars.mlx, &vars.mtools);
 	draw_map(&vars.mtools, &vars.mlx);
-	mlx_put_image_to_window(vars.mlx.mlx_ptr, vars.mlx.win, vars.mlx.img.img_ptr, 0, 0);
-	mlx_hook(vars.mlx.win, 2, 1L>>0, keypress, &vars);
+	mlx_put_image_to_window(vars.mlx.mlx_ptr, vars.mlx.win,
+		vars.mlx.img.img_ptr, 0, 0);
+	mlx_hook(vars.mlx.win, 2, 1L >> 0, keypress, &vars);
 	mlx_hook(vars.mlx.win, 17, 0L, close_win, &vars);
 	mlx_loop(vars.mlx.mlx_ptr);
 	return (0);
