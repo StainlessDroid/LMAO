@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mapascua <mapascua@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/28 11:10:56 by mpascual          #+#    #+#             */
-/*   Updated: 2023/05/20 13:36:26 by mpascual         ###   ########.fr       */
+/*   Created: 2025/08/22 15:14:56 by mapascua          #+#    #+#             */
+/*   Updated: 2025/08/22 15:44:39 by mapascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 /*
-** I used the Bresenham's line algorithm 
+** I used Bresenham's line algorithm 
 ** https://wikipedia.org/wiki/Bresenham's_line_algorithm
 **  Two different functions are needed for lines with (-1 < slope < 1) (low)
 **  or (-1 > slope || slope > 1) (high)

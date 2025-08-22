@@ -1,14 +1,4 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mpascual <mpascual@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/09/24 18:51:54 by mpascual          #+#    #+#              #
-#    Updated: 2025/08/06 17:16:17 by mapascua         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# FDF MAKEFILE #
 
 # Output Colors
 CLR_RMV		:= \033[0m
@@ -28,8 +18,6 @@ SRC 		= main.c draw.c read.c utils.c store_map.c
 BONUS_SRC	= main_bonus.c draw.c read.c utils.c store_map.c
 HEADERS		= fdf.h $(LIBFT_DIR)/$(LIBFT)
 OS			= $(shell uname)
-SCREEN_RESX	= $(shell xdpyinfo | grep 'dimensions' | cut -d ' ' -f7 | cut -d 'x' -f1)
-SCREEN_RESY	= $(shell xdpyinfo | grep 'dimensions' | cut -d ' ' -f7 | cut -d 'x' -f2)
 
 ifdef WITH_BONUS
 	SRCS = $(BONUS_SRC)
@@ -52,17 +40,15 @@ all: compile_lib $(NAME)
 
 $(NAME): $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME) -L. $(LIBFT_DIR)/$(LIBFT) -D SCREEN_RES_X=$(SCREEN_RESX) -D SCREEN_RES_Y=$(SCREEN_RESY)
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME) -L. $(LIBFT_DIR)/$(LIBFT)
 	@echo "$(GREEN)$(NAME) created ✓${CLR_RMV}"
 
 $(OBJS): $(SRCS)
 		$(CC) $(CFLAGS) -c $(SRCS)
 
 debug: compile_lib
-	@echo $(SCREEN_RESX)
-	@echo $(SCREEN_RESY)
 	@echo "$(GREEN)--DEBUG MODE--\nCompilation ${CLR_RMV}of ${YELLOW}$(NAME)${CLR_RMV}..."
-	$(CC) $(CFLAGS) -g $(SRCS) -o $(NAME) $(MLX_FLAGS) -L. $(LIBFT_DIR)/$(LIBFT) -D SCREEN_RES_X=$(SCREEN_RESX) -D SCREEN_RES_Y=$(SCREEN_RESY) -fsanitize=address
+	$(CC) $(CFLAGS) -g $(SRCS) -o $(NAME) $(MLX_FLAGS) -L. $(LIBFT_DIR)/$(LIBFT) -fsanitize=address
 	@echo "$(GREEN)$(NAME) created ✓${CLR_RMV}"
 
 compile_lib:

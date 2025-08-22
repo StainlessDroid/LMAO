@@ -6,7 +6,7 @@
 /*   By: mapascua <mapascua@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:44:04 by mapascua          #+#    #+#             */
-/*   Updated: 2025/07/30 15:40:32 by mapascua         ###   ########.fr       */
+/*   Updated: 2025/08/22 17:16:51 by mapascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	close_win(t_vars *vars)
 	return (0);
 }
 
-void	clean_exit(char error_code, t_mlx_data *mlx, t_map_tools *mtools)
+void	clean_exit(char code, t_mlx_data *mlx, t_map_tools *mtools, char *msg)
 /*
 ** Reads the last 4 bits of the char (1st argument) as an error code 
 **  O   O   O   O	  error_code
@@ -30,18 +30,20 @@ void	clean_exit(char error_code, t_mlx_data *mlx, t_map_tools *mtools)
 **  ╹━━━━━━━━━━━━━━━> free map
 */
 {
-	if (error_code / 8)
+	if (code / 8)
 		free_map(mtools);
-	if (error_code / 4)
+	if (code / 4)
 	{
 		mlx_destroy_window(mlx->mlx_ptr, mlx->win);
 		mlx_destroy_image(mlx->mlx_ptr, mlx->img.img_ptr);
 	}
-	if (error_code / 2)
+	if (code / 2)
 		close(mtools->fd);
-	if (error_code % 2)
+	if (code % 2)
 	{
 		ft_putstr_fd("Error\n", 2);
+		if (msg)
+			ft_putstr_fd(msg, 2);
 		exit(EXIT_FAILURE);
 	}
 	exit(EXIT_SUCCESS);
@@ -49,21 +51,8 @@ void	clean_exit(char error_code, t_mlx_data *mlx, t_map_tools *mtools)
 
 void	diy_pixel_put(t_mlx_data *mlx, int x, int y, int color)
 /*
-**                   _______
-**             _____/       \_____
-**             |  _     ___   _   ||
-**             | | \     |   | \  ||
-**             | |  |    |   |  | ||
-**             | |_/     |   |_/  ||
-**             | | \     |   |    ||
-**             | |  \    |   |    ||
-**             | |   \. _|_. | .  ||
-**             |                  ||
-**             |      bonus       ||
-**             |                  ||
-**     *       | *   **    * **   |**      **
-**      \))ejm97/.,(//,,..,,\||(,,.,\\,.((//
-**			 FUCK YOU RANDOM SEGFAULT!!
+** Check that the pixel is within the screen boundries before adding
+** the info to the image
 */
 {
 	char	*dst;
